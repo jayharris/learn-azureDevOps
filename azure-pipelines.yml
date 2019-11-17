@@ -61,3 +61,21 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'webApp'
         publishLocation: 'Container'
+- stage: TestDeployStage
+  displayName: 'Test Deployment'
+  jobs:
+  - deployment: Deploy
+    displayName: 'Deployment'
+    environment: 'azureDevOpsWorkshop-dev'
+    strategy:
+     runOnce:
+       deploy:
+         steps:
+         - task: AzureRmWebAppDeployment@4
+           displayName: 'Azure App Service Deploy'
+           inputs:
+             ConnectionType: 'AzureRM'
+             azureSubscription: 'Arana Software (b8ba1017-db20-40ed-bf4b-ed8d50d50175)'
+             appType: 'webApp'
+             WebAppName: 'workshop-dev'
+             packageForLinux: '$(Pipeline.Workspace)/webApp/learn-azuredevops.zip'
