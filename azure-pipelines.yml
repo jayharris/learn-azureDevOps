@@ -9,17 +9,25 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: '--no-restore --configuration $(BuildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '*.tests/*.tests.csproj'
-    arguments: '--no-restore --no-build --configuration $(BuildConfiguration)'
+jobs:
+- job: BuildJob
+  displayName: 'Build Job'
+  timeoutInMinutes: 5
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet restore'
+    inputs:
+      command: 'restore'
+      feedsToUse: 'select'
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet build'
+    timeoutInMinutes: 3
+    inputs:
+      command: 'build'
+      arguments: '--no-restore --configuration $(BuildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet test'
+    inputs:
+      command: 'test'
+      projects: '*.tests/*.tests.csproj'
+      arguments: '--no-restore --no-build --configuration $(BuildConfiguration)'
