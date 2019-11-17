@@ -31,3 +31,9 @@ jobs:
       command: 'test'
       projects: '*.tests/*.tests.csproj'
       arguments: '--no-restore --no-build --configuration $(BuildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet publish'
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      arguments: '--no-restore --no-build --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
