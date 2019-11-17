@@ -1,5 +1,7 @@
 # Azure DevOps Workshop - Jay's Fork
 
+[![Build status](https://dev.azure.com/aranasoft/Workshop/_apis/build/status/Classic%20Pipeline)](https://dev.azure.com/aranasoft/Workshop/_build/latest?definitionId=42)
+
 ## Prerequisites
 
 ### Git & GitHub Account
