@@ -37,3 +37,8 @@ jobs:
       command: 'publish'
       publishWebProjects: true
       arguments: '--no-restore --no-build --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'webApp'
+      publishLocation: 'Container'
